@@ -11,6 +11,7 @@ queue<int> q;
 unordered_map<int, int> um;
 
 int main(){
+
     cin >> n >> k;
     
     for (auto i = 0; i < n; i++){
