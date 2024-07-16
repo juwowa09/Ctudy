@@ -16,7 +16,7 @@ int main(){
     }
 
 
-    cout << "< ";
+    cout << "<";
 
     while(!q.empty()){
         for (auto i = 0; i < k - 1; i++){ // k-1번 반복
@@ -25,9 +25,16 @@ int main(){
             q.push(temp); // temp 다시 뒤로 push
         }
 
+
+        if (q.size() == 1){
+            cout << q.front();
+            q.pop();
+        }
+
+        else{
         cout << q.front() << ", "; // k번째 값 출력
         q.pop(); // 해당 값 제거
-        
+        }
     }
 
     cout << ">";
