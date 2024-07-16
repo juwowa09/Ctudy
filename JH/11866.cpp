@@ -4,7 +4,7 @@
 using namespace std;
 
 int n, k;
-queue<int> q, answer;
+queue<int> q;
 
 
 int main(){
@@ -12,21 +12,21 @@ int main(){
     cin >> n >> k;
 
     for (auto i = 0; i < n; i++){
-        q.push(i + 1);
+        q.push(i + 1); // 큐 1~7 순서대로 넣기
     }
 
 
     cout << "< ";
-    
+
     while(!q.empty()){
-        for (auto i = 0; i < k - 1; i++){
-            int temp = q.front();
-            q.pop();
-            q.push(temp);
+        for (auto i = 0; i < k - 1; i++){ // k-1번 반복
+            int temp = q.front(); // temp에 q 앞에 있는 값 대입 (초기 : 1)
+            q.pop(); // q 앞에 있는 temp 제거
+            q.push(temp); // temp 다시 뒤로 push
         }
 
-        cout << q.front() << ", ";
-        q.pop();
+        cout << q.front() << ", "; // k번째 값 출력
+        q.pop(); // 해당 값 제거
         
     }
 
