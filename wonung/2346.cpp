@@ -25,31 +25,21 @@ int main()
         it = number.front();
         q.pop_front();
         number.pop_front();
-        if (it > 0) // 양수의 경우 앞에서부터
+        if (it > 0)
+            it -= 1;
+        else if (it < 0)
         {
-            for (int i = 0; i < it - 1; i++)
-            {
-                temp1 = q.front();
-                temp2 = number.front();
-                q.push_back(temp1);
-                number.push_back(temp2);
-                q.pop_front();
-                number.pop_front();
-            }
+            while (it < 0 && q.size())
+                it += q.size();
         }
-        else // 음수의 경우 뒤에서부터
+        for (int i = 0; i < it; i++)
         {
-            for (int i = 0; i < (it * -1); i++)
-            {
-                temp1 = q.back();
-                temp2 = number.back();
-                q.push_front(temp1);
-                number.push_front(temp2);
-                q.pop_back();
-                number.pop_back();
-            }
+            temp1 = q.front();
+            temp2 = number.front();
+            q.push_back(temp1);
+            number.push_back(temp2);
+            q.pop_front();
+            number.pop_front();
         }
     }
 }
-
-
