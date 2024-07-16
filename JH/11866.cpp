@@ -26,7 +26,7 @@ int main(){
         }
 
 
-        if (q.size() == 1){
+        if (q.size() == 1){ // 마지막 숫자일 경우 콤마 제거
             cout << q.front();
             q.pop();
         }
