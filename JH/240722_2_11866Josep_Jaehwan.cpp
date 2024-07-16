@@ -8,7 +8,6 @@ queue<int> q;
 
 
 int main(){
-
     cin >> n >> k;
 
     for (auto i = 0; i < n; i++){
