@@ -1,0 +1,49 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main()
+{
+	int n, k;
+	cin >> n >> k;
+
+	vector<int> v(100001);
+
+	int hap = 0, max_loc = 0, m = 0;
+
+	for (int i = 0; i < n; i++)
+	{
+		int weight, loc;
+		cin >> weight >> loc;
+		v[loc] = weight;
+		max_loc = max(max_loc, loc);
+	}
+	int cnt = k * 2 + 1;//곰이 닿을 수 있는 범위
+	
+	if (cnt > 100001)
+	{
+		for (int i = 1; i <= max_loc; i++)
+		{
+			hap += v[i];
+			m = max(hap, m);
+		}
+	}
+	else
+	{
+		for (int i = 1; i <= max_loc; i++)
+		{
+			if (i > cnt)
+			{
+				hap -= v[i - cnt];
+			}
+			hap += v[i];
+			m = max(hap, m);
+		}
+	}
+	cout << m;
+
+	//런타임 에러가 떠요,,흑흑
+
+}
