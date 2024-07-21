@@ -1,10 +1,7 @@
 #include <iostream>
-#include <queue>
 using namespace std;
 
-int a[1000001] = {
-    0,
-};
+int a[1000001];
 
 int main()
 {
@@ -18,12 +15,12 @@ int main()
         cin >> g >> x;
         a[x] = g;
     }
-    for (int i = 1; i <= 2 * k + 1; i++)
+    for (int i = 0; i <= 2 * k && i <= 1000000; i++)
     {
         sum += a[i];
     }
     max = sum;
-    for (int i = k + 2; i <= 1000000 - k; i++)
+    for (int i = k + 1; i <= 10000000 && i <= 1000000 - k; i++)
     {
         sum = sum - a[i - k - 1] + a[i + k];
         if (sum > max)
