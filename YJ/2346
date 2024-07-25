@@ -1,0 +1,54 @@
+#include<iostream>
+#include<deque>
+#include<vector>
+
+using namespace std;
+
+typedef pair<int, int> ci;
+
+int main()
+{
+	int n;
+	int idx = 0;
+	cin >> n;
+	deque<ci> dq;
+
+	for (int i = 1; i <= n; i++)
+	{
+		int a;//종이
+		cin >> a;
+		dq.push_back(make_pair(i,a));//(풍선번호, 종이)
+		
+	}
+
+	while (dq.size() > 1)
+	{
+		cout << dq.front().first<<" ";//풍선번호 출력
+		idx = dq.front().second;//이동할 index
+		dq.pop_front();//출력한거 삭제
+
+		//양수일때
+		if (idx > 0)
+		{
+			for (int i = 0; i < idx - 1; i++)
+			{
+				dq.push_back(dq.front());
+				dq.pop_front();
+			}
+		}
+		//음수일때
+		else
+		{
+			idx = abs(idx);
+			//거꾸로
+			for (int i = 0; i < idx; i++)
+			{
+				dq.push_front(dq.back());
+				dq.pop_back();
+			}
+		}
+	}
+
+	cout << dq.front().first;
+	
+}
