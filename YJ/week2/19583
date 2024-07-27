@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <string>
+
+using namespace std;
+
+int change(string str)
+{
+	str.erase(2, 1);
+	int a = stoi(str);
+	return a;
+}
+
+int main()
+{
+    ios::sync_with_stdio(false), cin.tie(NULL);
+	vector<int> time;
+	set<string> income;
+	set<string> out;
+	string str, name;
+
+	string s, e, q; cin >> s >> e >> q;
+	time.push_back(change(s));
+	time.push_back(change(e));
+	time.push_back(change(q));//2200이런식으로
+
+	while (true)
+	{
+		cin >> str >> name;
+		//시작전
+		if (change(str) <= time[0])
+		{
+			income.insert(name);
+		}
+		//퇴장시간~스밍끝
+		else if (change(str) >= time[1] && change(str) <= time[2])
+		{
+			auto it = income.find(name);
+			if (it != income.end()) {
+				out.insert(name);
+			}
+		}
+
+		if (cin.eof())
+		{
+			cout << out.size();
+			break;
+		}
+	}
+}
