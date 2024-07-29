@@ -1,0 +1,33 @@
+#include<iostream>
+#include<vector>
+#include<set>
+#include<algorithm>
+using namespace std;
+
+int main(void)
+{
+	set<string> sets;
+	set<string> dbj;
+	int n, m; cin >> n >> m;
+	string s;
+	for (int i = 0; i < n; i++)
+	{
+		cin >> s;
+		sets.insert(s);
+	}
+
+	for (int i = 0; i < m; i++)
+	{
+		cin >> s;
+		auto it = sets.find(s);
+		if (it != sets.end())
+		{
+			dbj.insert(s);
+		}
+	}
+	cout << dbj.size() << "\n";
+	for (auto str : dbj)
+	{
+		cout << str << "\n";
+	}
+}
