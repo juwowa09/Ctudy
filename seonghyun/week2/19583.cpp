@@ -25,12 +25,12 @@ int timeToDec(string time){
 }
 
 bool isExisted(string name){
+    // iter 사용법을 배워놓자.
     iter = arr.find(name);
     if(iter == arr.end()) return false;
     
     return true;
 }
-
 
 void inputValue(string name){
     if(!isExisted(name)){
@@ -39,6 +39,7 @@ void inputValue(string name){
 }
 
 void process(string time, string name){
+    //비교하기 쉽게 10진수로 변환한다.
     int startTime = timeToDec(S);
     int endTime = timeToDec(E);
     int streamingTime = timeToDec(Q);
@@ -48,8 +49,12 @@ void process(string time, string name){
     if(realTime <= startTime){
         inputValue(name);
     }
+
+    // case 2 : 개강총회 끝나고 스트리밍 종료 사이
     else{
         if(endTime <= realTime && realTime <= streamingTime){
+            //출석을 했다면 중복 count하지 않도록 지워주고,
+            //answer에 +1 해준다.
             if(isExisted(name)) {
                 arr.erase(iter);
                 answer++;
