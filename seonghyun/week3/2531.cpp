@@ -23,30 +23,12 @@ void input(){
     }
 }
 
-/*
-흠 벡터와 인덱스를 통해 원형 리스트를 구현한다.
-그리고 모든 경우의 수를 모두 해보고 그 중에서 max를 찾는다.
-초밥의 종류 d가 주어졌으므로, 초기 배열을 선언하고 bool을 통해 이미 먹은 초밥인지 계산한다.
-but 배운 set을 이용하면 더 쉽게할 수 있을 거 같음.
-
-따라서 벡터로 전체적인 벨트를 만들고 브루트 포스와 set을 이용하여 max를 찾는다.
-
-시간초과 발생
-process 과정에서 시간초과가 발생한다.
-
-슬라이싱 위도우 개념으로 생각해야할듯.
-map을 통해서 같은 종류의 초밥이 들어있을 때 해당 초밥이 모두 빠지지 않게
-해당 초밥의 갯수를 같이 저장한다.
-*/
-
-
 //슬라이싱 윈도우로 초밥이 포함되고 제거되는 과정
 int process(int nextSushi, int lastSushi){
     m[nextSushi] += 1;
-
     if(m[lastSushi] == 1) m.erase(lastSushi);
-    else m[lastSushi] -= 1; //초밥의 개수가 0이면 삭제해주어야함
-    return m.size();
+    else m[lastSushi] -= 1; //초밥의 개수가 0이면 map에서 삭제해주어야함
+    return m.size(); //초밥 종류의 갯수를 의미
 }
 
 void sol(){
@@ -60,6 +42,7 @@ void sol(){
     int answer = m.size();
     int nextSushi, lastSushi;
 
+    //탐색
     for(int i = k; i < N; i++){
         nextSushi = belt[i];
         lastSushi = belt[i-k];
