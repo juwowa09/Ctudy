@@ -1,6 +1,6 @@
 #include <iostream>
 #include <set>
-#include <map>
+#include <map> // 반대로 접근할 필요가 있을까?
 
 using namespace std;
 
@@ -12,15 +12,15 @@ set<int> setA, setB;
 int main(){
     cin >> N;
 
-    for (auto i = 1; i <= N; i++){
+    for (auto i = 1; i <= N; i++){ // 인덱스 0부터 시작했던 실수 정정
         cin >> arr[i];
         setA.insert(i);
         setB.insert(arr[i]);
     }
 
-    while(setA != setB){
+    while(setA != setB){ // set 비교연산 가능
 
-        set<int> setTempA;
+        set<int> setTempA; // for문 안에서 setA 수정했던 실수 정정
 
         for (auto i : setA){
             if (setB.find(i) != setB.end()){
@@ -28,7 +28,7 @@ int main(){
             }
         }
 
-        setA = setTempA;
+        setA = setTempA; // set 삽입연산 가능
 
         set<int> setTempB;
 
@@ -43,6 +43,5 @@ int main(){
 
     for(auto i : setB){
         cout << i << '\n';
-        
     }
 }
