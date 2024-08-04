@@ -1,0 +1,70 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> check(3001, 0);
+
+int main()
+{
+	int n, d, k, c; cin >> n >> d >> k >> c;
+	queue<int> sushi;
+	vector<int> v;
+	int answer = 0, cnt = 0;
+
+	for (int i = 0; i < k; i++)
+	{
+		int a; cin >> a;
+		sushi.push(a);
+		v.push_back(a);
+		if (check[a] == 0) cnt++;
+		check[a]++;
+	}
+	//보너스
+	if (check[c] == 0)
+	{
+		cnt++;
+		check[c]++;
+	}
+	answer = max(answer, cnt);
+	
+	for (int i = k; i < n; i++)
+	{
+		int s; cin >> s;
+		check[sushi.front()]--;
+		//종류하나 사라짐
+		if (check[sushi.front()] == 0) cnt--;
+		sushi.pop();//front 삭제
+		sushi.push(s);//new 초밥 추가
+		if (check[s] == 0) cnt++;//새로운 종류일때
+		check[s]++;
+		if (check[c] == 0)
+		{
+			cnt++;
+			check[c]++;
+		}
+		answer = max(answer, cnt);
+	}
+  
+	for (int i = 0; i < k; i++)
+	{
+		check[sushi.front()]--;
+		if (check[sushi.front()] == 0) cnt--;
+		sushi.pop();
+		sushi.push(v[i]);
+		if (check[v[i]] == 0) cnt++;
+		check[v[i]]++;
+		if (check[c] == 0)
+		{
+			cnt++;
+			check[c]++;
+		}
+		answer = max(answer, cnt);
+	}
+
+
+
+	cout << answer;
+}
