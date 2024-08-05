@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+#include<set>
+
+using namespace std;
+
+vector<bool> check(101,false);
+bool b = false;
+set<int> answer;
+
+void dfs(vector<int> v, int tmp, int start)
+{
+   //cycle 존재
+   if (check[tmp] == true && v[tmp] == start)
+   {
+      b = true;
+      cout << "cycle" << "\n";
+   }
+   //cycle 없음
+   else
+   {
+      check[tmp] = true;
+      dfs(v, v[tmp], start);
+      if (b == true) answer.insert(v[tmp]);
+   }
+}
+
+int main()
+{
+   int n; cin >> n;
+   vector<int> v(101,0);
+   for (int i = 1; i <= n; i++)
+   {
+      int a; cin >> a;
+      v[i]=a;
+   }
+   for (int i = 1; i <= n; i++)
+   {
+      dfs(v,i,i);
+      b = false;
+      for (auto aa : answer)
+      {
+         cout << aa<<"\n";
+      }
+   }
+   cout << answer.size();
+   
+}
