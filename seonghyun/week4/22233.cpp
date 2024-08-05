@@ -18,7 +18,9 @@ void input(){
     }
 
     for(int i = 0; i < M; i++){
-        cin >> tmp;
+        //문자에 공백이 포함되지 않으므로, 
+        //getline()을 이용해서 받아올 필요가 없다.
+        cin >> tmp; 
         blogs.push_back(tmp);
     }
 }
@@ -27,6 +29,8 @@ void sol(){
     for(int i = 0; i < M; i++){
         string tmp = "";
         string blog = blogs[i];
+
+        //parsing
         for(int i = 0; i < int(blog.size()); i++){
             if(blog[i] == ','){
                 keywords.erase(tmp);
@@ -36,6 +40,8 @@ void sol(){
                 tmp += blog[i];
             }
         }
+
+        //**tmp에 남아있는 데이터까지 처리해준다.
         keywords.erase(tmp);
         cout << keywords.size() << endl;
     }
