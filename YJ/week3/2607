@@ -1,0 +1,70 @@
+#include<iostream>
+#include<vector>
+#include<string>
+
+using namespace std;
+
+const int SIZE = 26;
+
+vector<int> countAlphabet(string input)
+{
+	vector<int> alpha(SIZE, 0);
+	for (int i = 0; i < input.size(); i++)
+	{
+		alpha[input[i] - 'A']++;
+	}
+	return alpha;
+}
+
+bool solution(string input, vector<int> word, int len)
+{
+	//비슷한단어 찾기
+	vector<int> word2;
+	int cnt = 0;
+	bool check = false;
+	word2 = countAlphabet(input);
+	for (int i = 0; i < SIZE; i++)
+	{
+		//알파벳 하나씩 다 비교하기
+		int diff = abs(word[i] - word2[i]);
+		if (diff == 0) continue;
+		//하나만 다를때
+		else if (diff == 1) cnt++;
+		//여러개 다를때
+		else {
+			check = false;
+			return check;
+		}
+	}
+	if (cnt < 2) check = true;
+	else if (cnt == 2)
+	{
+		if (len == input.size())
+		{
+			check = true;
+		}
+	}
+	else check = false;
+
+	return check;
+}
+
+int main()
+{
+	//비슷한 단어
+	// 주어진 첫번째단어와 비슷한 단어
+	//1. 같은구성 2.한문자만 다르거나 하나 추가,빼기 하면 같은구성 되는경우
+
+	int n; cin >> n;
+	string first; cin >> first;
+	vector<int> word;
+	int answer = 0;
+	int first_len = first.size();
+	word = countAlphabet(first);
+	for (int i = 0; i < n-1; i++)
+	{
+		string str; cin >> str;
+		if (solution(str, word, first_len)) answer++;
+	}
+	cout << answer;
+}
