@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include<set>
+#include<unordered_set>
 
 using namespace std;
 
@@ -8,8 +8,7 @@ int main()
 {
 	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 	int n, m; cin >> n >> m;
-	int cnt = 0;
-	set<string> word;
+	unordered_set<string> word;
 
 	//키워드 저장
 	for (int i = 0; i < n; i++)
@@ -18,35 +17,27 @@ int main()
 		word.insert(s);
 	}
 
-	for(int i = 0; i<m; i++)
+	for (int i = 0; i < m; i++)
 	{
 		string s; cin >> s;
-		vector<string> v;//키워드 담아서 리턴할 벡터
-		int start = 0;
+		int start = 0, cnt = 0;
 
 		///,기준으로 split
 		for (int i = 0; i < s.size(); i++)
 		{
-			//,만나면 그 전까지 단어들 벡터에 넣기
-			//키워드 최대 10개까지, 키워드 길이 10
 			if (s[i] == ',') {
-				v.push_back(s.substr(start, i));
+				string keyword = s.substr(start, i-start);
+				if (word.find(keyword) != word.end())
+				{
+					word.erase(keyword);
+				}
 				start = i + 1;
 			}
 		}
 		//마지막단어 처리
-		v.push_back(s.substr(start, s.size() - 1));
-
-		//word에서 찾기
-		for (int i = 0; i < v.size(); i++)
-		{
-			//find 쓰면 시간복잡도 O(N)
-			if (word.find(v[i]) != word.end())
-			{
-				//키워드 삭제
-				word.erase(v[i]);
-			}
-		}
+		string keyword = s.substr(start, s.size() - start);
+		if (word.find(keyword) != word.end()) word.erase(keyword);
+		
 		cout << word.size() << "\n";
 	}
 
