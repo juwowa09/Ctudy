@@ -1,42 +1,37 @@
 #include <iostream>
-#include <map>
-#include <vector>
+#include <set>
 #include <string>
 #include <sstream>
 
 using namespace std;
 
-
-
-int main(){
-
+int main() {
     int N, M;
-    
-    map<string, bool> m;
-
     cin >> N >> M;
 
-    vector<string> keyW(N);
-    vector<string> writeW(M);
+    set<string> s;
+    string line;
 
     cin.ignore();
 
-    for(auto i = 0; i < N; i++){
-        getline(cin, keyW[i]);
-        m[keyW[i]] = true;
+    for (int i = 0; i < N; i++) {
+        getline(cin, line);
+        s.insert(line);
     }
 
-    
-    for(auto i = 0; i < M; i++){
-        getline(cin, writeW[i]);
+    for (int i = 0; i < M; i++) {
+        getline(cin, line);
         string word;
-        stringstream ss(writeW[i]);
-        while(getline(ss, word, ',')){
-            m.erase(word);
+        stringstream ss(line);
+
+        while (getline(ss, word, ',')) {
+            if (s.find(word) != s.end()) {
+                s.erase(word);
+            }
         }
 
-        int ans = m.size();
-
-        cout << ans << '\n';
+        cout << s.size() << '\n';
     }
+
+    return 0;
 }
