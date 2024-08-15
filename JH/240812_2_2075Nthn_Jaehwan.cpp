@@ -1,18 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <map>
 
 using namespace std;
 
 int main(){
+    ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
     int N;
 
     cin >> N;
 
-    priority_queue<pair<int, int>> pq;
-    vector<int> ind(N, N-1);
+    vector<vector<int>> arr(N, vector<int> (N));
+    map<int, int> m;
 
-    vector<vector<int>> arr(N, vector<int>(N));
+    vector<int> cnt(N, 0);
 
     int ans;
 
@@ -21,23 +22,20 @@ int main(){
             cin >> arr[i][j];
 
             if(i == N - 1){
-                pq.push({arr[i][j], j});
+                m[-arr[i][j]] = j;
             }
         }
     }
 
-
-    for(auto i = 0; i < N; i++){
-        ans = pq.top().first;
-        int tempx = pq.top().second;
-        pq.pop();
-        
-        ind[tempx]--;
-        
-        if (ind[tempx] >= 0) {
-            pq.push({arr[ind[tempx]][tempx], tempx});
+    for(auto i = 1; i <= N; i++){
+        if (i == N){
+            cout << -m.begin()->first;
+            return 0;
         }
+        int tempf = m.begin()->first;
+        int temps = m.begin()->second;
+        cnt[temps]++;
+        m[-arr[N - 1 - cnt[temps]][temps]] = temps;
+        m.erase(tempf);
     }
-
-    cout << ans;
 }
