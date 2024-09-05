@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #include <queue>
 using namespace std;
@@ -116,7 +115,7 @@ void jihun_Turn(int r, int c, int time){
 
 void sol(){ 
     int time = 0;
-    int move_size = 0;
+    int move_size = 0; //지훈이가 해당 1분에 움직일 수 있는 모든 경우의 수
 
     //지훈이가 더 이상 움직일 수 없으면 종료
     while(!jihun.empty()){
