@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+#include<unordered_set>
+
+using namespace std;
+
+int main()
+{
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	int n, m; cin >> n >> m;
+	unordered_set<string> word;
+
+	//키워드 저장
+	for (int i = 0; i < n; i++)
+	{
+		string s; cin >> s;
+		word.insert(s);
+	}
+
+	for (int i = 0; i < m; i++)
+	{
+		string s; cin >> s;
+		int start = 0, cnt = 0;
+
+		///,기준으로 split
+		for (int i = 0; i < s.size(); i++)
+		{
+			if (s[i] == ',') {
+				string keyword = s.substr(start, i-start);
+				if (word.find(keyword) != word.end())
+				{
+					word.erase(keyword);
+				}
+				start = i + 1;
+			}
+		}
+		//마지막단어 처리
+		string keyword = s.substr(start, s.size() - start);
+		if (word.find(keyword) != word.end()) word.erase(keyword);
+		
+		cout << word.size() << "\n";
+	}
+
+}
