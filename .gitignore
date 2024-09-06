@@ -2,4 +2,5 @@
 a.out*
 a.out/*
 a.out.*
+.DS_Store
 tempCodeRunnerFile.cpp

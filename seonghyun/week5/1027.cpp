@@ -38,7 +38,7 @@ void process(int target_idx){
             check[i] += 1;
         }
     }
-}
+}ㄱㄹ                       
 
 void sol(){
     for(int i = 0; i < N-1; i++){
