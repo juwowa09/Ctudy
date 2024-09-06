@@ -1,0 +1,27 @@
+#include<iostream>
+#include<string>
+#include<map>
+
+using namespace std;
+
+int main()
+{
+	map<string, float> m;
+	map<string, float>::iterator it;
+	string tree;
+	int cnt = 0;
+
+	while (getline(cin,tree))
+	{
+		m[tree]++;
+		cnt++;
+	}
+	cout << fixed;
+	cout.precision(4);
+	for (it = m.begin(); it != m.end(); it++)
+	{		
+		float aa = (it->second / cnt) * 100;
+		cout << it->first << " " << aa<<"\n";
+	}
+
+}

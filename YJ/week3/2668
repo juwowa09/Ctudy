@@ -1,0 +1,74 @@
+#include<iostream>
+#include<vector>
+#include<set>
+#include <string.h>
+
+using namespace std;
+
+bool check[101];
+bool isLoop[101];
+set<int> answer;
+
+//루프 생기면 체크하기 
+//tmp는 윗줄, start는 루프 처음으로 돌아오는지 확인용
+void dfs(vector<int> v, int tmp, int start)
+{
+    //이미 방문
+    if (isLoop[tmp] == true) {
+        return;
+    }
+    //cycle 존재
+    if (check[tmp]==true && v[tmp] == start)
+    {
+        for (int i = 0; i < 101; i++)
+        {
+            //방문한 애들 루프로 넣어주기??
+            if (check[i]==true) {
+                isLoop[i] = true;
+            }
+        }
+        return;
+    }
+    //cycle 없음
+    else
+    {
+        check[tmp] = true;
+        //예를들어 v[5]=5일때
+        if (v[tmp] == tmp)
+        {
+            answer.insert(tmp);
+            return;
+        }
+        dfs(v, v[tmp], start);
+    }
+}
+
+int main()
+{
+    int n; cin >> n;
+    vector<int> v(101, 0);
+    for (int i = 1; i <= n; i++)
+    {
+        int a; cin >> a;
+        v[i] = a;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        memset(check, 0, sizeof(check));
+        dfs(v, i, i);
+    }
+    //루프 만들어진애들 추가
+    for (int i = 0; i < 101; i++)
+    {
+        if (isLoop[i])
+        {
+            answer.insert(i);
+        }
+    }
+    cout << answer.size()<<"\n";
+    for (auto aa : answer)
+    {
+        cout << aa<<"\n";
+    }
+
+}
