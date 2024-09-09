@@ -39,8 +39,10 @@ void sol(){
     map<int,set<int>> answer;
     int maxlen = 0;
     int key = 0;
+    //정렬해서 옆에 문자와 비교하면 된다.
     for(int i = 0; i < N-1; i++){
         int count = process(list[i], list[i+1]);
+        //같은 접두사를 저장하기 위함
         if(maxlen < count){
             key++;
             maxlen = count;
@@ -58,6 +60,7 @@ void sol(){
     }
     int ansKey = 0;
     int ansIdx = 1e9;
+    //
     for(auto tmp : answer){
         for(auto idx : tmp.second){
             if(idx < ansIdx){
