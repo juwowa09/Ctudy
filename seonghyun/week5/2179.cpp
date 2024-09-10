@@ -60,17 +60,18 @@ void sol(){
     }
     int ansKey = 0;
     int ansIdx = 1e9;
-    //
+    //같은 길이의 접두사 중에서 가장 먼저 들어온 문자를 찾기 위함
     for(auto tmp : answer){
         for(auto idx : tmp.second){
             if(idx < ansIdx){
                 ansIdx = idx;
-                ansKey = tmp.first;
+                ansKey = tmp.first;   
             }
             break;
         }
     }
     int flag = 2;
+    //출력
     for(auto idx : answer[ansKey]){
         if(flag == 0) break;
         
