@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <utility>
-
 using namespace std;
 
 int find_group(int group[], int x)
