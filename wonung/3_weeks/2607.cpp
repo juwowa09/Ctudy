@@ -1,6 +1,5 @@
 #include <iostream>
 #include <map>
-#include <iomanip> // setprecision과 fixed를 사용하기 위해 필요
 
 using namespace std;
 

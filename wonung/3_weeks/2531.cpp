@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <set>
+#include <unordered_map>
 
 using namespace std;
 
@@ -17,19 +17,23 @@ int main()
         cin >> num;
         v.push_back(num);
     }
-    set<int> s;
+    unordered_map<int, int> m;
     for (int j = 0; j < k; j++)
     {
-        s.insert(v[j]);
+        m[v[j]]++;
     }
-    s.insert(c);
     for (int i = 0; i < n; i++)
     {
-        s.erase(v[i]);
-        s.insert(v[(i + k) % n]);
-        s.insert(c);
-        if (s.size() > max)
-            max = s.size();
+        m[v[i]]--;
+        if (m[v[i]] == 0)
+            m.erase(v[i]);
+        m[v[(i + k) % n]]++;
+        m[c]++;
+        if (m.size() > max)
+            max = m.size();
+        m[c]--;
+        if (m[c] == 0)
+            m.erase(c);
     }
     cout << max;
 }
