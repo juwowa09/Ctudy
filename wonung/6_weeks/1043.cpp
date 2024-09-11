@@ -6,8 +6,8 @@ using namespace std;
 
 int find_group(int group[], int x)
 {
-    if (x != group[x])
-        return group[x] = find_group(group, group[x]); // 경로 압축
+    if (group[x] != x)
+        return group[x] = find_group(group, group[x]);
     return x;
 }
 void merge(int x, int y, int group[])
@@ -38,7 +38,7 @@ int main()
 
     cnt = m;
     v.resize(m);
-    // 초기화
+    // 초기화 엄청 중요
     for (int i = 0; i <= n; i++)
     {
         group[i] = i;
