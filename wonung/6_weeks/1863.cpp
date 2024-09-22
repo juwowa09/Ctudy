@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <stack>
 using namespace std;
 
 int main()
@@ -8,22 +8,18 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int arr[50000];
-    int n, x, cnt = 0;
+    stack<int> s;
+    int n, y, cnt = 0;
     cin >> n;
-    arr[0] = 0;
-    for (int i = 1; i <= n; i++)
+    for (int i = 0; i < n; i++)
     {
-        cin >> x >> arr[i];
-        for (int j = i - 1; j >= 0; j--)
+        cin >> y >> y;
+        while (!s.empty() && s.top() > y)
+            s.pop();
+        if ((s.empty() || s.top() < y) && y != 0)
         {
-            if (arr[j] == arr[i])
-                break;
-            if (arr[j] < arr[i])
-            {
-                cnt++;
-                break;
-            }
+            cnt++;
+            s.push(y);
         }
     }
     cout << cnt;
