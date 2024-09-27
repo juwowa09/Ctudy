@@ -7,24 +7,26 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+    int n, result = 1;
 
-    int n;
     cin >> n;
     int *arr = new int[n];
-    vector<int> v;
+    int *dp = new int[n];
     for (int i = 0; i < n; i++)
     {
         cin >> arr[i];
-    }
-    for (int i = 0; i < n; i++)
-    {
-        auto it = lower_bound(v.begin(), v.end(), arr[i]);
-        if (it == v.end())
+        dp[i] = 1;
+        for (int j = i - 1; j >= 0; j--)
         {
-            v.push_back(arr[i]);
+            if (arr[j] < arr[i] && dp[i] <= dp[j])
+            {
+                dp[i] = dp[j] + 1;
+                if (result < dp[i])
+                    result = dp[i];
+            }
         }
-        else
-            *it = arr[i];
     }
-    cout << v.size();
+    cout << result;
+    delete[] arr;
+    delete[] dp;
 }
