@@ -10,7 +10,6 @@ using namespace std;
 // P : 반전 갯수
 // X : 현재 층 
 int N,K,P,X;
-vector<int> numbers;
 
 const bool num[10][7] = {
 	{1, 1, 1, 0, 1, 1, 1},//0
@@ -27,7 +26,6 @@ const bool num[10][7] = {
 
 void input(){
     cin >> N >> K >> P >> X;
-    numbers = vector<int> (K);
 }
 
 bool process(int tmp){
