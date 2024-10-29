@@ -3,6 +3,18 @@
 #include <queue>
 using namespace std;
 
+void dfs(vector<int> *v, int num, int *visit, int *arr)
+{
+    visit[num] = 1;
+    for (auto iter = v[num].begin(); iter != v[num].end(); iter++)
+    {
+        if (visit[(*iter)])
+            continue;
+        arr[*iter] = num;
+        dfs(v, *iter, visit, arr);
+    }
+}
+
 void bfs(vector<int> *v, int *visit, int *arr)
 {
     queue<pair<int, int>> q;
@@ -47,7 +59,7 @@ int main()
     }
     visit[n] = 0;
     visit[n - 1] = 0;
-    bfs(v, visit, arr);
+    dfs(v, 1, visit, arr);
     for (int i = 2; i <= n; i++)
         cout << arr[i] << "\n";
     delete[] v;
