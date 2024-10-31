@@ -10,17 +10,6 @@ vector<vector<int>> tree(MAX);  // 트리 구조 저장
 vector<vector<int>> dp(MAX, vector<int>(2, 0));  // DP 테이블
 vector<bool> visited(MAX, false);  // 방문 여부 체크
 
-void print(){
-    for(int i = 0; i < 2; i++){
-        for(int j = 1; j <= N; j++){
-            cout << dp[j][i] << " ";
-        }
-        cout << endl;
-    }
-
-    cout << endl;
-}
-
 // DFS로 트리 탐색하며 DP 테이블 채우기
 void dfs(int node) {
     visited[node] = true;
@@ -60,7 +49,7 @@ int main() {
 
     // 1번 노드부터 DFS 시작
     dfs(1);
-    print();
+
     // 1번 노드를 기준으로 선택한 경우와 선택하지 않은 경우 중 최대값 출력
     cout << max(dp[1][0], dp[1][1]) << endl;
 
