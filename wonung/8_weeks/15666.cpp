@@ -22,9 +22,9 @@ void dfs(int tmp, int d, int m, int n, int idx) // 순열이 아닌 조합찾기
     {
         result[d] = arr[idx];
         tmp = arr[idx];           // tmp = 중복방지 수
-        dfs(0, d + 1, m, n, idx); // 조건만족, 다음 수 찾기
+        dfs(0, d + 1, m, n, idx); // 조건만족, 다음 수 찾기, 중복 허용
     }
-    dfs(tmp, d, m, n, idx + 1);
+    dfs(tmp, d, m, n, idx + 1); // 중복 허용 X
 }
 
 int main()
