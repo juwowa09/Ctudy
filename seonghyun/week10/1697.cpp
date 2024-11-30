@@ -26,7 +26,7 @@ bool process(int time, int next){
 
 void sol(){
     priority_queue<ii, vector<ii>, greater<ii>> pq;
-    pq.push(make_pair(0, N));
+    pq.push(make_pair(0, N)); //{cnt, pos}
     isVisited[N] = 0;
 
     while(!pq.empty()){
