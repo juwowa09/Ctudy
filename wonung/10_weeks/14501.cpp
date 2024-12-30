@@ -4,22 +4,19 @@ using namespace std;
 int dp[21] = {
     0,
 };
-int T[16];
-int P[16];
 
 int main()
 {
     ios_base::sync_with_stdio(false);
-    int n;
+    int n, t, p;
 
     cin >> n;
     for (int i = 1; i < n + 1; i++)
-        cin >> T[i] >> P[i];
-
-    for (int i = 1; i <= n + 1; i++)
     {
+        cin >> t >> p;
         dp[i] = dp[i] < dp[i - 1] ? dp[i - 1] : dp[i];
-        dp[i + T[i]] = dp[i + T[i]] < dp[i] + P[i] ? dp[i] + P[i] : dp[i + T[i]];
+        dp[i + t] = dp[i + t] < dp[i] + p ? dp[i] + p : dp[i + t];
     }
+    dp[n + 1] = dp[n + 1] < dp[n] ? dp[n] : dp[n + 1];
     cout << dp[n + 1];
 }
