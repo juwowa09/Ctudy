@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-long dp[91] = {0, 1, 1};
+long dp[46] = {0, 1, 1};
 
 int main()
 {
