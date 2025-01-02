@@ -32,6 +32,7 @@ int main()
         if (find_P(i) == -2)
             leaf[i] = 1;
     }
+
     for (int i = 0; i < n; i++)
         if (leaf[i] == 0)
             cnt++;
