@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int dp[21] = {
+int dp[1500051] = {
     0,
 };
 
