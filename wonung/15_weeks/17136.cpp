@@ -41,6 +41,7 @@ void dfs(int row, int col, int cnt)
 
     for (int i = 5; i > 0; i--)
     {
+        // 현재 칸 + i - 1 칸 인덱스 까지 가능
         if (row + i > 10 || col + i > 10 || paper[i] >= 5)
             continue;
 
