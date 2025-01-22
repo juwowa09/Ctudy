@@ -3,31 +3,30 @@
 using namespace std;
 
 int n, k, result = 0;
-;
-unsigned int check[50];
-vector<unsigned int> v;
+vector<int> v;
 
-void dfs(int num, int index, unsigned int value)
+int word[50];
+
+void dfs(int cur, int value, int cnt)
 {
-    if (num <= 0)
+    if (cnt == k)
     {
-        int cnt = 0;
+        int count = 0;
         for (auto i : v)
         {
             if ((i & value) == i)
-                cnt++;
+                count++;
         }
-        result = max(result, cnt);
+        result = max(result, count);
         return;
     }
-    for (int i = index; i < 26; i++)
-    {
-        if (!(value & (1 << i)))
-        {
-            dfs(num - 1, i + 1, value |= (1 << i));
-            value &= ~(1 << i);
-        }
-    }
+
+    if (cur >= 26)
+        return;
+
+    if (!(value & (1 << cur)))
+        dfs(cur + 1, value + (1 << cur), cnt + 1);
+    dfs(cur + 1, value, cnt);
 }
 
 int main()
@@ -36,30 +35,27 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    unsigned long check_bit = 0;
     string str;
 
     cin >> n >> k;
     for (int i = 0; i < n; i++)
     {
-        int cnt = 0;
         cin >> str;
+        int cnt = 0;
         for (int j = 0; j < str.size(); j++)
-            if (!(check[i] & 1 << (str[j] - 97)))
+        {
+            if (!(word[i] & (1 << str[j] - 97)))
             {
-                check[i] |= 1 << (str[j] - 97);
+                word[i] |= (1 << str[j] - 97);
                 cnt++;
             }
+        }
         if (cnt <= k)
-            v.push_back(check[i]);
+            v.push_back(word[i]);
     }
 
-    check_bit |= 1 << ('a' - 97);
-    check_bit |= 1 << ('n' - 97);
-    check_bit |= 1 << ('i' - 97);
-    check_bit |= 1 << ('t' - 97);
-    check_bit |= 1 << ('c' - 97);
+    int check = (1 << ('a' - 97)) + (1 << ('c' - 97)) + (1 << ('t' - 97)) + (1 << ('n' - 97)) + (1 << ('i' - 97));
+    dfs(0, check, 5);
 
-    dfs(k - 5, 0, check_bit);
     cout << result;
 }
