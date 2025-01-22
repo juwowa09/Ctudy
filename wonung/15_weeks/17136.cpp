@@ -1,69 +1,56 @@
 #include <iostream>
-#include <unordered_set>
-#include <queue>
 using namespace std;
 
-int bitmap[10][10];
-int paper[6] = {
-    0,
-};
 int result = 0x7FFFFFFF;
+int map[10][10];
+int paper[6];
 
 bool check(int r, int c, int size)
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size; j++)
         {
-            if (bitmap[r + i][c + j] == 0)
+            if (map[r + i][c + j] == 0)
                 return false;
         }
     return true;
 }
 
-void dfs(int row, int col, int cnt)
+void dfs(int r, int c, int cnt)
 {
-    while (bitmap[row][col] == 0)
+    if (c > 9)
     {
-        col++;
-        if (col > 9)
-        {
-            row++;
-            if (row > 9)
-            {
-                result = min(result, cnt);
-                return;
-            }
-            col = 0;
-        }
+        r++;
+        c = 0;
+    }
+    if (r > 9)
+    {
+        result = min(result, cnt);
+        return;
     }
     if (cnt >= result)
         return;
 
-    for (int i = 5; i > 0; i--)
+    if (map[r][c])
     {
-        // 현재 칸 + i - 1 칸 인덱스 까지 가능
-        if (row + i > 10 || col + i > 10 || paper[i] >= 5)
-            continue;
-
-        if (check(row, col, i))
+        for (int size = 5; size > 0; size--)
         {
-            paper[i]++;
-            for (int r = 0; r < i; r++)
-                for (int c = 0; c < i; c++)
-                {
-                    bitmap[row + r][col + c] = 0;
-                }
-
-            dfs(row, col, cnt + 1);
-
-            paper[i]--;
-            for (int r = 0; r < i; r++)
-                for (int c = 0; c < i; c++)
-                {
-                    bitmap[row + r][col + c] = 1;
-                }
+            if (r + size <= 10 && c + size <= 10 && check(r, c, size) && paper[size] < 5)
+            {
+                paper[size]++;
+                for (int i = 0; i < size; i++)
+                    for (int j = 0; j < size; j++)
+                        map[r + i][c + j] = 0;
+                dfs(r, c + size - 1, cnt + 1);
+                paper[size]--;
+                for (int i = 0; i < size; i++)
+                    for (int j = 0; j < size; j++)
+                        map[r + i][c + j] = 1;
+            }
         }
     }
+    else
+        dfs(r, c + 1, cnt);
 }
 
 int main()
@@ -72,11 +59,12 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int n;
     for (int i = 0; i < 10; i++)
         for (int j = 0; j < 10; j++)
-            cin >> bitmap[i][j];
+            cin >> map[i][j];
+
     dfs(0, 0, 0);
+
     if (result == 0x7FFFFFFF)
         cout << -1;
     else
