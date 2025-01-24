@@ -1,48 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <algorithm>
 using namespace std;
 
-vector<int> score;
-vector<int> indegree;
-int n;
+int n, t, m;
+int score[501];
+int indegree[501];
 
-void sol()
+bool topological()
 {
-    queue<int> win;
     vector<pair<int, int>> v;
+    queue<int> q;
     int pre = -1;
-    bool flag = false;
 
     for (int i = 1; i <= n; i++)
         v.push_back({indegree[i], i});
+
     sort(v.begin(), v.end(), less<pair<int, int>>());
-
-    for (int i = 0; i < n; i++)
+    for (auto it = v.begin(); it != v.end(); it++)
     {
-        if (pre == v[i].first)
-        {
-            flag = true;
-            break;
-        }
-        pre = v[i].first;
-        win.push(v[i].second);
+        if (it->first == pre)
+            return false;
+        pre = it->first;
+        q.push(it->second);
     }
 
-    if (flag == false)
+    while (!q.empty())
     {
-        while (!win.empty())
-        {
-            cout << win.front() << " ";
-            win.pop();
-        }
-        cout << "\n";
+        cout << q.front() << " ";
+        q.pop();
     }
-    else
-    {
-        cout << "IMPOSSIBLE\n";
-    }
+    cout << "\n";
+
+    return true;
 }
 
 int main()
@@ -51,34 +41,33 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    int t, m, a, b, k;
     cin >> t;
     while (t--)
     {
+        int num, one, two;
         cin >> n;
-        score.resize(n + 1, 0);
-        indegree.resize(n + 1, 0);
         for (int i = 1; i <= n; i++)
         {
-            cin >> k;
-            score[k] = i;
-            indegree[k] = i - 1;
+            cin >> num;
+            score[num] = i;
+            indegree[num] = i - 1;
         }
         cin >> m;
-        while (m--)
+        for (int i = 0; i < m; i++)
         {
-            cin >> a >> b;
-            if (score[a] > score[b])
+            cin >> one >> two;
+            if (score[one] > score[two])
             {
-                indegree[b]++;
-                indegree[a]--;
+                indegree[one]--;
+                indegree[two]++;
             }
             else
             {
-                indegree[b]--;
-                indegree[a]++;
+                indegree[one]++;
+                indegree[two]--;
             }
         }
-        sol();
+        if (!topological())
+            cout << "IMPOSSIBLE\n";
     }
 }
