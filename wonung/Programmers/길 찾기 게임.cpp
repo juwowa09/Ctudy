@@ -20,19 +20,21 @@ void inorder(int index, int l, int r)
 
     result[0].push_back(v[index].second);
 
+    bool l_flag = false;
     for (int i = index + 1; i < n; i++)
     {
-        if (v[i].first[0] > v[index].first[0] || v[i].first[0] < l || v[i].first[0] > r)
+        if (v[i].first[0] < l || v[i].first[0] > r)
             continue;
-        inorder(i, l, v[index].first[0]);
-        break;
-    }
-    for (int i = index + 1; i < n; i++)
-    {
-        if (v[i].first[0] < v[index].first[0] || v[i].first[0] < l || v[i].first[0] > r)
-            continue;
-        inorder(i, v[index].first[0], r);
-        break;
+        if (!l_flag && v[i].first[0] < v[index].first[0])
+        {
+            inorder(i, l, v[index].first[0]);
+            l_flag = true;
+        }
+        if (v[i].first[0] > v[index].first[0])
+        {
+            inorder(i, v[index].first[0], r);
+            break;
+        }
     }
 
     result[1].push_back(v[index].second);
