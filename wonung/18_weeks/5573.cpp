@@ -29,7 +29,7 @@ int main()
             int d = dp[i][j];
             if (d % 2)
             {
-                if (Map[i][j])
+                if (Map[i - 1][j - 1])
                     dp[i][j + 1] += 1;
                 else
                     dp[i + 1][j] += 1;
@@ -39,6 +39,7 @@ int main()
         }
     }
     int r = 1, c = 1;
+
     while (r <= h && c <= w)
     {
         if (dp[r][c] % 2)
