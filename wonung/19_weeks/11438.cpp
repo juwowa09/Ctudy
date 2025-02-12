@@ -1,12 +1,11 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
-#include <algorithm>
+#define MAX 18
 using namespace std;
 
-int n, m, maxlevel;
-int parent[100001][18];
+int n, m;
 int level[100001];
+int parent[100001][MAX];
 vector<int> adj[100001];
 
 int LCA(int a, int b)
@@ -15,26 +14,18 @@ int LCA(int a, int b)
         return 1;
 
     if (level[a] < level[b])
-    {
-        int t = a;
-        a = b;
-        b = t;
-    }
+        swap(a, b);
 
     if (level[a] != level[b])
     {
-        for (int i = maxlevel; i >= 0; i--)
-        {
+        for (int i = MAX - 1; i >= 0; i--)
             if (level[parent[a][i]] >= level[b])
                 a = parent[a][i];
-        }
     }
-
     if (a == b)
         return a;
-
     int result;
-    for (int i = maxlevel; i >= 0; i--)
+    for (int i = MAX - 1; i >= 0; i--)
     {
         if (parent[a][i] != parent[b][i])
         {
@@ -43,24 +34,20 @@ int LCA(int a, int b)
         }
         result = parent[a][i];
     }
-
     return result;
 }
 
-void setTree(int c, int p, int l)
+void setTree(int c, int p)
 {
     parent[c][0] = p;
-    level[c] = l;
+    level[c] = level[p] + 1;
 
-    for (int i = 1; i <= maxlevel; i++)
+    for (int i = 1; i < MAX; i++)
         parent[c][i] = parent[parent[c][i - 1]][i - 1];
 
     for (auto it : adj[c])
-    {
-        if (it == p)
-            continue;
-        setTree(it, c, l + 1);
-    }
+        if (it != p)
+            setTree(it, c);
 }
 
 int main()
@@ -69,25 +56,21 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
 
-    cin >> n;
-
     int a, b;
-    for (int i = 1; i < n; i++)
+
+    cin >> n;
+    for (int i = 0; i < n - 1; i++)
     {
         cin >> a >> b;
         adj[a].push_back(b);
         adj[b].push_back(a);
     }
-
-    maxlevel = (int)floor(log2(100001));
-    setTree(1, 0, 1);
+    setTree(1, 0);
 
     cin >> m;
-
-    while (m--)
+    for (int i = 0; i < m; i++)
     {
         cin >> a >> b;
         cout << LCA(a, b) << "\n";
-        ;
     }
 }
